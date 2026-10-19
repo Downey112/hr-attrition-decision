@@ -145,9 +145,17 @@ Open `powerbi/HRAttrition.pbip` in Power BI Desktop and select **Refresh**. The 
 | **Decision simulator** | Pick `k`, `c` and `e` to see: the threshold; who to target; the expected saving; the back-tested gain with its CI (for scenarios in the grid); break-even effectiveness; a risk histogram; targeting by gender and age |
 | **Model check** | Calibration by quintile; all 45 back-test scenarios; calibration by group; notes on how to read the report |
 
+**Who leaves**
+
+![Power BI who leaves page](docs/powerbi_who_leaves.png)
+
+**Decision simulator**
+
 ![Power BI decision simulator page](docs/powerbi_decision.png)
 
-Screenshots of the other pages: [Who leaves](docs/powerbi_who_leaves.png) · [Model check](docs/powerbi_model_check.png).
+**Model check**
+
+![Power BI model check page](docs/powerbi_model_check.png)
 
 ## Files
 
