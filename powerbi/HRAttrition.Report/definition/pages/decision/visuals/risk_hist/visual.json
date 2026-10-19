@@ -169,7 +169,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cox model, P(leave in next 12 months | tenure so far) · nobody is far from the 14% base rate'"
+                  "Value": "'Cox model, P(leave in next 12 months | tenure so far) · mean 15.6%, half between 12% and 18%'"
                 }
               }
             }

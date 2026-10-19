@@ -4,7 +4,7 @@
 
 ## Recommendation
 
-**Don't buy a turnover-prediction model to target a retention programme yet. First run a small, randomised pilot of the programme itself** to measure how many would-be leavers it actually keeps.
+**Don't buy a turnover-prediction model to target a retention programme yet. First run a randomised pilot of the programme itself** to measure how many would-be leavers it actually keeps.
 
 That one number decides whether the programme pays, and for whom. The prediction model barely changes the answer.
 
@@ -32,7 +32,7 @@ We analysed 1,116 real employees from a survey of Russian-speaking office worker
 
 A mentor during probation made no measurable difference. These are patterns, not proof of cause: grey pay probably marks a certain kind of employer more than it drives people out.
 
-**Predicting *individuals* is much harder than describing groups.** The best model ranks people only a little better than a coin toss (60% of pairs ranked correctly, against 50% for chance). Almost everyone's predicted first-year risk falls between 5% and 38%, and most are close to the 14% average.
+**Predicting *individuals* is much harder than describing groups.** The best model ranks people only a little better than a coin toss (60% of pairs ranked correctly, against 50% for chance). Current staff's predicted risk of leaving in the next 12 months ranges from 5% to 38%, but half of them sit between 12% and 18%.
 
 ## Why the model doesn't settle the decision
 
@@ -40,7 +40,7 @@ Offering someone the package pays when:
 
 > **chance they leave × share of leavers the package keeps × cost of losing them > cost of the package**
 
-Costs are counted in **annual salaries**. Replacing someone typically costs half a salary to two salaries; the package might cost 5–20% of a salary. Salary then cancels out, so the rule works for any pay level.
+Costs are counted in **annual salaries**. Replacing someone typically costs half a salary to two salaries; the package might cost 5–20% of a salary. When both costs scale with salary (a raise, a bonus), salary cancels out and the rule works for any pay level. For a fixed-price programme (a course, coaching), the cut-off is lower for higher earners.
 
 ![Cost per employee at each risk cut-off, for two sets of assumptions](../reports/figures/cost_vs_threshold.png)
 
@@ -59,7 +59,7 @@ The model doesn't use gender or age. Even so, it **underestimates the risk for p
 
 ## Next steps
 
-1. **Pilot:** offer the package to a random half of one high-turnover unit for 12 months and compare leaving rates. This measures effectiveness directly.
+1. **Pilot:** offer the package to a random half of eligible staff for 12 months and compare leaving rates. This measures effectiveness directly. Plan the size properly: detecting a drop from 20% to 14% (30% effectiveness) needs about 600 people in each half, so pool several high-turnover units. A pilot in one small team will almost certainly be inconclusive.
 2. **Use the pilot result in the decision tool** (Power BI, "Decision simulator" page). It shows instantly who to target, and what it saves, for any cost and effectiveness.
 3. **Look at the groups that leave fast.** Grey pay, job-site hiring and certain industries are worth investigating as policy questions, not just as prediction inputs.
 

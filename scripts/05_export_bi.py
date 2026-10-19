@@ -111,10 +111,13 @@ def main():
     hr.to_csv(BI / "hazard_ratios.csv", index=False, float_format="%.4f")
 
     staff = pd.read_csv(D.ROOT / "data" / "processed" / "staff_scores.csv")
-    for col in ["industry", "profession", "traffic", "coach", "greywage", "way"]:
-        staff[col] = factor_series(staff.assign(**{col: staff[col]}), col) if col in D.CATEGORICAL else staff[col]
+    for col in D.CATEGORICAL:
+        # pool with the full-data counts the model used, not the smaller staff subset's
+        kept = set(D.lump(d[col]))
+        staff[col] = staff[col].where(staff[col].isin(kept), "other").map(lambda v: label(col, v))
     staff["gender"] = staff["gender"].map(LEVELS["gender"])
-    staff["risk_bin"] = np.floor(staff["p_leave_12m"] / 0.025) * 0.025
+    # small epsilon so values on a bin edge (e.g. 0.075) are not pushed down by float error
+    staff["risk_bin"] = np.floor(staff["p_leave_12m"] / 0.025 + 1e-9) * 0.025
     keep = ["row_id", "tenure_months", "industry", "profession", "traffic", "coach", "greywage", "way",
             "p_leave_12m", "risk_bin", "gender", "age_band"]
     staff[keep].to_csv(BI / "staff.csv", index=False, float_format="%.4f")

@@ -45,7 +45,7 @@ The following is from Babushkin's Russian-language blog posts, found with a web 
 | 510 rows share a full personality profile, or a tenure/age/job record, with another row: likely the same person entered more than once | Rows are linked into **771 "person groups"** (connected components). CV folds and bootstrap resamples never split a group, and test standard errors are cluster-robust. Ignoring the grouping inflates the CV C-index from 0.613 to 0.623, which is exactly the leakage the grouping prevents. |
 | `Finance` is garbled (a Cyrillic letter) and `HoReCa` has a leading space | Fixed in `data.clean`. |
 | Categories with fewer than 30 rows | Pooled into `other` for modelling. |
-| No salary column | Costs are expressed in **multiples of annual salary**. Salary then cancels out of the decision rule (see below). |
+| No salary column | Costs are expressed in **multiples of annual salary**. When both costs scale with salary, salary cancels out of the decision rule (see below). |
 
 **Limitations that no code can fix.** The data is a self-selected survey, not one company's HR records, so "current staff" means respondents still in the job they described. Personality was measured at survey time, possibly after the person left. Exits are self-reported.
 
@@ -74,7 +74,7 @@ The median tenure is **51 months**. 14% of people leave within 12 months and 30%
 
 | Factor | Robust p | BH q | Pattern |
 |---|---|---|---|
-| Industry | <0.001 | <0.001 | Banks, Building, Consulting and State leave fastest (about 22–25% gone in year 1). IT, Power and Telecom are slowest. |
+| Industry | <0.001 | <0.001 | Banks, Building, Consulting and State leave fastest (about 20–25% gone in year 1). IT, Power and Telecom are slowest. |
 | Grey wage | <0.001 | <0.001 | Median tenure is **26 months on a grey wage vs 54 on a white wage**. |
 | Age band at hire (protected) | <0.001 | <0.001 | Those hired aged 36 or older leave sooner. |
 | Hiring channel | 0.002 | 0.005 | People who came through friends, referrals or direct applications stay longest. Job-site hires stay shortest. |
@@ -113,7 +113,7 @@ All costs are in units of **one annual salary**:
 - `c`: cost of the intervention.
 - `e`: effectiveness, meaning the share of would-be leavers the intervention keeps.
 
-Intervening on someone with leaving probability `p` saves `p·e·k` and costs `c`, so it pays when **`p > c / (e·k)`**. Salary cancels out, which is why the missing salary column doesn't matter. The rule only works if `p` is calibrated, which is why calibration is reported above. For each current employee the output also gives the **break-even effectiveness** `c / (p·k)`: how well an intervention would have to work to pay for itself.
+Intervening on someone with leaving probability `p` saves `p·e·k` and costs `c`, so it pays when **`p > c / (e·k)`**. When both `k` and `c` scale with salary, salary cancels out, which is why the missing salary column doesn't matter. For a fixed-price programme it does not cancel: the cut-off falls as salary rises. The rule only works if `p` is calibrated, which is why calibration is reported above. For each current employee the output also gives the **break-even effectiveness** `c / (p·k)`: how well an intervention would have to work to pay for itself.
 
 **Back-test.** Out-of-fold P(leave within 12 months of hire) was compared with what actually happened. Inverse-probability-of-censoring weights account for people whose 12-month outcome is unknown. The test covered 45 scenarios: k ∈ {0.5, 1, 2} × c ∈ {0.05, 0.1, 0.2} × e ∈ {0.1, …, 0.7}.
 
@@ -124,7 +124,7 @@ Intervening on someone with leaving probability `p` saves `p·e·k` and costs `c
 | Largest saving | 4.3% of one salary per employee (k = 2, c = 0.2, e = 0.7) |
 | Base case (k = 1, c = 0.1, e = 0.3) | The threshold is 0.33, so 4 of 551 current staff would be targeted. In practice the rule says "don't run this programme". |
 
-`figures/targeting_gain.png` and `figures/cost_vs_threshold.png` show this. The model matters only when the economics are already on the fence. Elsewhere, the cost assumptions decide everything, so **the most valuable number to estimate is `e`, not a better C-index**. A small randomised pilot of the intervention would be worth more than a better model.
+`figures/targeting_gain.png` and `figures/cost_vs_threshold.png` show this. The model matters only when the economics are already on the fence. Elsewhere, the cost assumptions decide everything, so **the most valuable number to estimate is `e`, not a better C-index**. A randomised pilot of the intervention would be worth more than a better model. It must be large enough: detecting a fall from 20% to 14% needs about 600 people per arm (80% power).
 
 The bootstrap intervals hold the model's predictions fixed, so they understate the uncertainty.
 

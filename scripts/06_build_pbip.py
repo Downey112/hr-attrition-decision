@@ -132,29 +132,29 @@ DECISION_MEASURES = [
      "    backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ),\n    backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 )\n)",
      "0.0%", "Decision"),
     ("Backtest Value",
-     'IF ( ISBLANK ( [Backtest Saving] ), "n/a", FORMAT ( [Backtest Saving], "+0.0%;-0.0%;0.0%" ) )', None, "Decision"),
+     'IF ( ISBLANK ( [Backtest Saving] ), "n/a", FORMAT ( ROUND ( [Backtest Saving], 3 ), "+0.0%;-0.0%;0.0%" ) )', None, "Decision"),
     ("Row Risk If Targeted",
      "VAR p = MAX ( staff[p_leave_12m] )\nRETURN\n    IF ( p > [Risk Threshold], p )", "0.0%", "Decision"),
     ("Row Net Value",
      "VAR p = MAX ( staff[p_leave_12m] )\nRETURN\n    IF ( p > [Risk Threshold], p * [Sel e] * [Sel k] - [Sel c] )", "0.000", "Decision"),
     ("Row Break-even e",
      "VAR p = MAX ( staff[p_leave_12m] )\nRETURN\n    IF ( p > [Risk Threshold], DIVIDE ( [Sel c], p * [Sel k] ) )", "0%", "Decision"),
-        ("Bin Color", f'IF ( MAX ( staff[risk_bin] ) + 0.0125 > [Risk Threshold], "{BLUE}", "{GREY}" )', None, "Colors"),
+        ("Bin Color", f'IF ( MAX ( staff[risk_bin] ) + 0.025 > [Risk Threshold], "{BLUE}", "{GREY}" )', None, "Colors"),
     ("Label Threshold", '"c ÷ (e × k): intervene above this"', None, "Labels"),
     ("Label Targeted", 'FORMAT ( [Share Targeted], "0.0%" ) & " of " & FORMAT ( [Staff Scored], "#,0" ) & " scored staff"',
      None, "Labels"),
-    ("Label Expected", '"net saving per employee, × salary"', None, "Labels"),
+    ("Label Expected", '"per employee vs no programme"', None, "Labels"),
     ("Label Backtest",
      "VAR lo = LOOKUPVALUE ( backtest_grid[lo95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), "
      "backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )\n"
      "VAR hi = LOOKUPVALUE ( backtest_grid[hi95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), "
      "backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )\nRETURN\n"
-     '    IF ( ISBLANK ( [Backtest Saving] ), "not a back-tested scenario",\n'
+     '    IF ( ISBLANK ( [Backtest Saving] ), "back-tested only for k 0.5/1/2, c .05/.1/.2",\n'
      '        "95% CI " & FORMAT ( lo, "0.0%" ) & " to " & FORMAT ( hi, "0.0%" ) )',
      None, "Labels"),
-    ("Label Break-even", '"median needed to break even"', None, "Labels"),
+    ("Label Break-even", '"median staff; over 100% = never"', None, "Labels"),
     ("Title Histogram",
-     '"12-month leaving risk, current staff · blue = above " & FORMAT ( [Risk Threshold], "0.0%" )', None, "Titles"),
+     '"12-month leaving risk, current staff · blue bins hold staff above " & FORMAT ( [Risk Threshold], "0.0%" )', None, "Titles"),
     ("Title Staff Table",
      'FORMAT ( [Staff Targeted], "#,0" ) & " staff to target at k = " & FORMAT ( [Sel k], "0.00" ) & ", c = " '
      '& FORMAT ( [Sel c], "0.00" ) & ", e = " & FORMAT ( [Sel e], "0%" ) & ", highest risk first"', None, "Titles"),
@@ -431,7 +431,7 @@ def page_decision():
              default="0.3D", alt="Choose the share of would-be leavers the intervention keeps.")
     kp = [("thr", "Risk Threshold", "Label Threshold", "Risk threshold"),
           ("tgt", "Staff Targeted", "Label Targeted", "Staff to target"),
-          ("exp", "Expected Saving", "Label Expected", "Expected saving (model)"),
+          ("exp", "Expected Saving", "Label Expected", "Model-expected saving"),
           ("bt", "Backtest Value", "Label Backtest", "Back-tested gain from targeting"),
           ("be", "Median Break-even e", "Label Break-even", "Break-even effectiveness")]
     for x, (key, val, lab, title) in zip(KPI_X, kp):
@@ -440,7 +440,7 @@ def page_decision():
             {"Category": {"projections": [C("staff", "risk_bin", "Predicted risk (2.5-point bins)", True)]},
              "Y": {"projections": [M("staff", "Staff Scored", "Staff")]}},
             {"expr": measure_ref("staff", "Title Histogram")},
-            "Cox model, P(leave in next 12 months | tenure so far) · nobody is far from the 14% base rate",
+            "Cox model, P(leave in next 12 months | tenure so far) · mean 15.6%, half between 12% and 18%",
             "Histogram of predicted 12-month leaving risk for current staff, bars above the threshold in blue.",
             objects={"dataPoint": [{"properties": {"fill": {"solid": {"color": {"expr": measure_ref(
                 "staff", "Bin Color")}}}},
@@ -509,7 +509,7 @@ def page_model():
         ("So the decision is driven by the assumptions. Targeting beats both 'nobody' and 'everybody' only when "
          "the threshold c ÷ (e·k) lands near the 14% base rate, and the best gain is 4.3% of one salary per employee.",
          "Segoe UI", "10pt", INK),
-        ("The number most worth measuring is e, the intervention's effectiveness, with a small randomised pilot.",
+        ("The number most worth measuring is e, the intervention's effectiveness, with a randomised pilot (about 600 people per arm to detect 20% → 14%).",
          "Segoe UI", "10pt", INK),
         ("Caveats: a self-selected survey, not one company · personality was measured at survey time · "
          "associations, not causes · data CC BY-NC-SA 4.0, © Edward Babushkin.", "Segoe UI", "9pt", MUTED),
