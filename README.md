@@ -147,7 +147,8 @@ Open `powerbi/HRAttrition.pbip` in Power BI Desktop and select **Refresh**. The 
 
 **Who leaves**
 
-![Power BI who leaves page](docs/powerbi_who_leaves.png)
+![Power BI who leaves page](<img width="1756" height="1078" alt="image" src="https://github.com/user-attachments/assets/e9d5bfd7-46c2-49ec-b68b-3133a004291a" />
+)
 
 **Decision simulator**
 
