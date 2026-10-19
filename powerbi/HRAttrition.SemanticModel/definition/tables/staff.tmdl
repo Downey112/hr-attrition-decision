@@ -78,7 +78,7 @@ table staff
 		displayFolder: Decision
 		lineageTag: f1479791-3b3e-5116-bb71-dda667ae6726
 
-	measure 'Backtest Value' = IF ( ISBLANK ( [Backtest Saving] ), "n/a", FORMAT ( [Backtest Saving], "+0.0%;-0.0%;0.0%" ) )
+	measure 'Backtest Value' = IF ( ISBLANK ( [Backtest Saving] ), "n/a", FORMAT ( ROUND ( [Backtest Saving], 3 ), "+0.0%;-0.0%;0.0%" ) )
 		displayFolder: Decision
 		lineageTag: 4abd5e6a-66b0-549c-9f85-c5f8256aff05
 
@@ -106,7 +106,7 @@ table staff
 		displayFolder: Decision
 		lineageTag: 5dcaac28-7d5e-5f1a-b850-09cf313292d1
 
-	measure 'Bin Color' = IF ( MAX ( staff[risk_bin] ) + 0.0125 > [Risk Threshold], "#1D4ED8", "#CBD5E1" )
+	measure 'Bin Color' = IF ( MAX ( staff[risk_bin] ) + 0.025 > [Risk Threshold], "#1D4ED8", "#CBD5E1" )
 		displayFolder: Colors
 		lineageTag: 4df6ebb7-da9d-561b-971c-7909b3602fed
 
@@ -118,7 +118,7 @@ table staff
 		displayFolder: Labels
 		lineageTag: 4e8c9a2b-3bb8-5ab9-a250-77176c2a3b98
 
-	measure 'Label Expected' = "net saving per employee, × salary"
+	measure 'Label Expected' = "per employee vs no programme"
 		displayFolder: Labels
 		lineageTag: ad9df5bc-f267-5f3f-9452-dcfb17192ff9
 
@@ -126,16 +126,16 @@ table staff
 			VAR lo = LOOKUPVALUE ( backtest_grid[lo95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )
 			VAR hi = LOOKUPVALUE ( backtest_grid[hi95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )
 			RETURN
-			    IF ( ISBLANK ( [Backtest Saving] ), "not a back-tested scenario",
+			    IF ( ISBLANK ( [Backtest Saving] ), "back-tested only for k 0.5/1/2, c .05/.1/.2",
 			        "95% CI " & FORMAT ( lo, "0.0%" ) & " to " & FORMAT ( hi, "0.0%" ) )
 		displayFolder: Labels
 		lineageTag: b68369fd-2855-5e84-84e9-6a5d30e594c7
 
-	measure 'Label Break-even' = "median needed to break even"
+	measure 'Label Break-even' = "median staff; over 100% = never"
 		displayFolder: Labels
 		lineageTag: c5403c4f-46c8-5ca6-8e90-172760dca6a6
 
-	measure 'Title Histogram' = "12-month leaving risk, current staff · blue = above " & FORMAT ( [Risk Threshold], "0.0%" )
+	measure 'Title Histogram' = "12-month leaving risk, current staff · blue bins hold staff above " & FORMAT ( [Risk Threshold], "0.0%" )
 		displayFolder: Titles
 		lineageTag: 1dfe7f3c-3528-5419-b04e-1bcc6b933100
 

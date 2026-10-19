@@ -62,7 +62,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Expected saving (model)'"
+                  "Value": "'Model-expected saving'"
                 }
               }
             },
@@ -113,7 +113,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Expected saving (model).'"
+                  "Value": "'Model-expected saving.'"
                 }
               }
             }
