@@ -1,0 +1,8 @@
+attribute,group,n,predicted_12m,observed_12m_km,order
+Age at hire,<=25,278,0.1500,0.1283,0
+Age at hire,26-30,295,0.1431,0.1302,1
+Age at hire,31-35,258,0.1396,0.1127,2
+Age at hire,36-40,166,0.1383,0.1805,3
+Age at hire,41+,119,0.1504,0.2361,4
+Gender,Female,841,0.1469,0.1504,5
+Gender,Male,275,0.1355,0.1249,6

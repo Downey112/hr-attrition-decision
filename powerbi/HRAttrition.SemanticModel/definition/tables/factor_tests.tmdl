@@ -1,0 +1,67 @@
+table factor_tests
+	lineageTag: c8056a47-a4dd-5f61-b939-4ab44e485e62
+
+	column factor
+		dataType: string
+		lineageTag: 8e39d370-5f88-5b37-a03d-1732e1081839
+		summarizeBy: none
+		sourceColumn: factor
+		sortByColumn: p_rank
+
+	column df
+		dataType: int64
+		formatString: #,0
+		lineageTag: aab3aae3-df2d-52ca-a831-61275a31504c
+		summarizeBy: none
+		sourceColumn: df
+
+	column robust_p
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 372c76a2-3d55-59dc-a0d9-914ff0dc61ab
+		summarizeBy: none
+		sourceColumn: robust_p
+
+	column robust_q_bh
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 9578ca39-17c5-53fe-8278-af4ff7ce7f20
+		summarizeBy: none
+		sourceColumn: robust_q_bh
+
+	column p_text
+		dataType: string
+		lineageTag: f7d7184d-ceb0-5dc8-a9eb-f5ca1d64c6c2
+		summarizeBy: none
+		sourceColumn: p_text
+
+	column q_text
+		dataType: string
+		lineageTag: e241bd7b-81a5-5565-895e-9c68cca8ce43
+		summarizeBy: none
+		sourceColumn: q_text
+
+	column p_rank
+		dataType: int64
+		formatString: #,0
+		lineageTag: 876f26b4-ef8c-5028-bf1c-b293dca7ff85
+		summarizeBy: none
+		sourceColumn: p_rank
+
+	partition factor_tests = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\factor_tests.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"factor", type text},
+				        {"df", Int64.Type},
+				        {"robust_p", type number},
+				        {"robust_q_bh", type number},
+				        {"p_text", type text},
+				        {"q_text", type text},
+				        {"p_rank", Int64.Type}
+				    }, "en-US")
+				in
+				    Typed

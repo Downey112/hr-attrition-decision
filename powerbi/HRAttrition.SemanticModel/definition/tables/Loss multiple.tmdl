@@ -1,0 +1,20 @@
+table 'Loss multiple'
+	lineageTag: c0c8ae18-75fd-5da1-8f62-c403c04f18a8
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 10842f51-db63-53de-bac1-c78696a22274
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+	column k = [Value] / 100
+		dataType: double
+		formatString: 0.00
+		lineageTag: 67411211-42f0-570a-82aa-51f011565f0c
+		summarizeBy: none
+
+	partition 'Loss multiple' = calculated
+		mode: import
+		source = GENERATESERIES ( 50, 300, 25 )

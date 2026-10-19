@@ -1,0 +1,291 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "backtest",
+  "position": {
+    "x": 632,
+    "y": 88,
+    "z": 4000,
+    "height": 304,
+    "width": 624,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "k"
+                }
+              },
+              "queryRef": "backtest_grid.k",
+              "nativeQueryRef": "k",
+              "displayName": "k"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "c"
+                }
+              },
+              "queryRef": "backtest_grid.c",
+              "nativeQueryRef": "c",
+              "displayName": "c"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "e"
+                }
+              },
+              "queryRef": "backtest_grid.e",
+              "nativeQueryRef": "e",
+              "displayName": "e"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "threshold"
+                }
+              },
+              "queryRef": "backtest_grid.threshold",
+              "nativeQueryRef": "threshold",
+              "displayName": "Threshold"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "share_targeted"
+                }
+              },
+              "queryRef": "backtest_grid.share_targeted",
+              "nativeQueryRef": "share_targeted",
+              "displayName": "Targeted"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "saving"
+                }
+              },
+              "queryRef": "backtest_grid.saving",
+              "nativeQueryRef": "saving",
+              "displayName": "Gain"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "lo95"
+                }
+              },
+              "queryRef": "backtest_grid.lo95",
+              "nativeQueryRef": "lo95",
+              "displayName": "CI low"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "backtest_grid"
+                    }
+                  },
+                  "Property": "hi95"
+                }
+              },
+              "queryRef": "backtest_grid.hi95",
+              "nativeQueryRef": "hi95",
+              "displayName": "CI high"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "backtest_grid"
+                  }
+                },
+                "Property": "saving"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Back-test: gain from targeting over the better simple policy'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'45 scenarios · gain in share of one salary per employee · CI above 0 in only 4'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table of the 45 back-tested cost scenarios with the gain from targeting and its confidence interval.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "staff_table",
+  "position": {
+    "x": 24,
+    "y": 512,
+    "z": 24000,
+    "height": 184,
+    "width": 1232,
+    "tabOrder": 24000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "row_id"
+                }
+              },
+              "queryRef": "staff.row_id",
+              "nativeQueryRef": "row_id",
+              "displayName": "Row"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "tenure_months"
+                }
+              },
+              "queryRef": "staff.tenure_months",
+              "nativeQueryRef": "tenure_months",
+              "displayName": "Tenure (months)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "industry"
+                }
+              },
+              "queryRef": "staff.industry",
+              "nativeQueryRef": "industry",
+              "displayName": "Industry"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "profession"
+                }
+              },
+              "queryRef": "staff.profession",
+              "nativeQueryRef": "profession",
+              "displayName": "Profession"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "traffic"
+                }
+              },
+              "queryRef": "staff.traffic",
+              "nativeQueryRef": "traffic",
+              "displayName": "Hiring channel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "greywage"
+                }
+              },
+              "queryRef": "staff.greywage",
+              "nativeQueryRef": "greywage",
+              "displayName": "Wage type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "Row Risk If Targeted"
+                }
+              },
+              "queryRef": "staff.Row Risk If Targeted",
+              "nativeQueryRef": "Row Risk If Targeted",
+              "displayName": "12-month risk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "Row Net Value"
+                }
+              },
+              "queryRef": "staff.Row Net Value",
+              "nativeQueryRef": "Row Net Value",
+              "displayName": "Net value (× salary)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "Row Break-even e"
+                }
+              },
+              "queryRef": "staff.Row Break-even e",
+              "nativeQueryRef": "Row Break-even e",
+              "displayName": "Break-even e"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "staff"
+                  }
+                },
+                "Property": "Row Risk If Targeted"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "staff"
+                    }
+                  },
+                  "Property": "Title Staff Table"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Survey respondents still in their job, not one company''s staff · net value = risk × e × k − c'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table of staff above the threshold with their risk, expected net value and break-even effectiveness.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

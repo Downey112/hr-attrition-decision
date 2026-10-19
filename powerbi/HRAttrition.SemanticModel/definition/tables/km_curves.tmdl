@@ -1,0 +1,48 @@
+table km_curves
+	lineageTag: f4135b9a-7102-5cff-a7f1-f2ef3e1a5bfb
+
+	measure 'Still Employed' = AVERAGE ( km_curves[still_employed] )
+		formatString: 0%
+		displayFolder: Base
+		lineageTag: a3c86cc9-ad3f-577d-9a0c-71c9cb5ea05e
+
+	column factor
+		dataType: string
+		lineageTag: 16c3a4e9-6812-52db-a9a0-487960407567
+		summarizeBy: none
+		sourceColumn: factor
+
+	column level
+		dataType: string
+		lineageTag: d242285d-a37c-5893-9457-3012827e06f0
+		summarizeBy: none
+		sourceColumn: level
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 04309b6a-2b25-5a40-ad70-a1bcfcd91ab0
+		summarizeBy: none
+		sourceColumn: month
+
+	column still_employed
+		dataType: double
+		formatString: 0%
+		lineageTag: 9a52bbff-a782-55c0-8ab9-a870db850b91
+		summarizeBy: none
+		sourceColumn: still_employed
+
+	partition km_curves = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\km_curves.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"factor", type text},
+				        {"level", type text},
+				        {"month", Int64.Type},
+				        {"still_employed", type number}
+				    }, "en-US")
+				in
+				    Typed

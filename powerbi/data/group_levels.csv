@@ -1,0 +1,42 @@
+factor,level,n,events,left_by_12m,median_months
+Hiring channel,Applied via job site,316,139,0.1673,53.9800
+Hiring channel,Found by employer on job site,247,129,0.1959,34.0400
+Hiring channel,Approached on a recommendation,206,124,0.1267,50.7300
+Hiring channel,Knew the employer,116,40,0.0766,67.8400
+Hiring channel,Employee referral,95,63,0.0974,61.7300
+Hiring channel,Recruitment agency,65,34,0.1331,52.7300
+Hiring channel,Recommended by non-employee,38,18,0.0278,59.2000
+Hiring channel,Applied directly,33,13,0.1818,95.2100
+Probation mentor,No mentor,674,342,0.1577,50.7300
+Probation mentor,Mentor (own manager),311,144,0.1016,55.7200
+Probation mentor,Mentor (colleague),131,74,0.1740,40.8700
+Wage type,Fully declared,991,489,0.1330,53.8200
+Wage type,Partly undeclared (grey),125,71,0.2363,25.5300
+Industry,Retail,283,130,0.1258,64.3000
+Industry,Other,176,99,0.1134,45.5400
+Industry,Manufacturing,143,69,0.1073,52.5000
+Industry,IT,122,34,0.1150,90.5100
+Industry,Banks,112,74,0.2248,29.4700
+Industry,Consulting,74,45,0.2274,31.9700
+Industry,State sector,55,35,0.2478,49.8700
+Industry,Building,41,31,0.2000,26.1500
+Industry,Transport,38,16,0.1351,43.9300
+Industry,Power generation,36,13,0.0572,70.3100
+Industry,Telecom,36,14,0.1339,106.8000
+Profession,HR,745,347,0.1376,52.7300
+Profession,Other,201,133,0.1583,45.9600
+Profession,IT,74,25,0.0789,94.9500
+Profession,Sales,65,34,0.1671,41.6900
+Profession,Marketing,31,21,0.3088,26.1800
+Commute,Bus,676,350,0.1610,45.3700
+Commute,Car,325,168,0.1194,58.8100
+Commute,On foot,115,42,0.1115,68.2700
+Gender (protected),Female,841,426,0.1504,48.4600
+Gender (protected),Male,275,134,0.1249,57.8200
+Supervisor gender (protected),Male,575,300,0.1378,49.3100
+Supervisor gender (protected),Female,541,260,0.1505,57.2300
+Age at hire (protected),26-30,295,131,0.1302,53.3600
+Age at hire (protected),<=25,278,166,0.1283,59.2000
+Age at hire (protected),31-35,258,114,0.1127,63.1500
+Age at hire (protected),36-40,166,91,0.1805,39.2300
+Age at hire (protected),41+,119,58,0.2361,42.4800

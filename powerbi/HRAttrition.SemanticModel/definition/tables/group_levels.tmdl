@@ -1,0 +1,64 @@
+table group_levels
+	lineageTag: 89fad39e-d589-50fd-b1db-10411ecefad1
+
+	measure 'Left Within 12 Months' = AVERAGE ( group_levels[left_by_12m] )
+		formatString: 0%
+		displayFolder: Base
+		lineageTag: b73c1bb6-2eca-5260-b77a-e4e01c1ac904
+
+	column factor
+		dataType: string
+		lineageTag: 1b50dcc6-2e0a-5402-90d9-3cd4b2dbe679
+		summarizeBy: none
+		sourceColumn: factor
+
+	column level
+		dataType: string
+		lineageTag: ad82d5f0-79c1-569e-86ff-c6ff27dd1f66
+		summarizeBy: none
+		sourceColumn: level
+
+	column n
+		dataType: int64
+		formatString: #,0
+		lineageTag: 2c1a6e70-46ab-59ef-86ad-a17b9a70ed76
+		summarizeBy: none
+		sourceColumn: n
+
+	column events
+		dataType: int64
+		formatString: #,0
+		lineageTag: 477ce14f-6169-5ad8-a22e-d12dc34c980c
+		summarizeBy: none
+		sourceColumn: events
+
+	column left_by_12m
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9172a855-1a9a-5a68-a583-4842221a97c9
+		summarizeBy: none
+		sourceColumn: left_by_12m
+
+	column median_months
+		dataType: double
+		formatString: 0
+		lineageTag: 54402e5d-1fae-5efa-96ea-14e32ef7450c
+		summarizeBy: none
+		sourceColumn: median_months
+
+	partition group_levels = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\group_levels.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"factor", type text},
+				        {"level", type text},
+				        {"n", Int64.Type},
+				        {"events", Int64.Type},
+				        {"left_by_12m", type number},
+				        {"median_months", type number}
+				    }, "en-US")
+				in
+				    Typed

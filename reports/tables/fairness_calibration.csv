@@ -1,0 +1,8 @@
+attribute,group,n,predicted_12m,observed_12m_km
+gender,f,841,0.1469,0.1504
+gender,m,275,0.1355,0.1249
+age_band,26-30,295,0.1431,0.1302
+age_band,31-35,258,0.1396,0.1127
+age_band,36-40,166,0.1383,0.1805
+age_band,41+,119,0.1504,0.2361
+age_band,<=25,278,0.1500,0.1283

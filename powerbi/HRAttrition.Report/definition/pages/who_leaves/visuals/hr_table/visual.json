@@ -1,0 +1,246 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "hr_table",
+  "position": {
+    "x": 24,
+    "y": 504,
+    "z": 21000,
+    "height": 192,
+    "width": 800,
+    "tabOrder": 21000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hazard_ratios"
+                    }
+                  },
+                  "Property": "label"
+                }
+              },
+              "queryRef": "hazard_ratios.label",
+              "nativeQueryRef": "label",
+              "displayName": "Covariate (Cox model, adjusted for all others)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hazard_ratios"
+                    }
+                  },
+                  "Property": "hazard_ratio"
+                }
+              },
+              "queryRef": "hazard_ratios.hazard_ratio",
+              "nativeQueryRef": "hazard_ratio",
+              "displayName": "Hazard ratio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hazard_ratios"
+                    }
+                  },
+                  "Property": "hr_lo"
+                }
+              },
+              "queryRef": "hazard_ratios.hr_lo",
+              "nativeQueryRef": "hr_lo",
+              "displayName": "95% CI low"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hazard_ratios"
+                    }
+                  },
+                  "Property": "hr_hi"
+                }
+              },
+              "queryRef": "hazard_ratios.hr_hi",
+              "nativeQueryRef": "hr_hi",
+              "displayName": "95% CI high"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hazard_ratios"
+                    }
+                  },
+                  "Property": "p_text"
+                }
+              },
+              "queryRef": "hazard_ratios.p_text",
+              "nativeQueryRef": "p_text",
+              "displayName": "p"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "hazard_ratios"
+                  }
+                },
+                "Property": "hazard_ratio"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'What raises or lowers the leaving rate'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Hazard ratio > 1 = leave sooner · cluster-robust CIs · associations, not causes'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table of Cox model hazard ratios with confidence intervals.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

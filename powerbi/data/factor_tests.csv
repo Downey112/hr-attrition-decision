@@ -1,0 +1,15 @@
+factor,df,robust_p,robust_q_bh,p_text,q_text,p_rank
+Industry,10,4.768e-07,6.675e-06,<0.001,<0.001,1
+Wage type,1,2.759e-06,1.931e-05,<0.001,<0.001,2
+Age at hire (protected),4,2.032e-05,9.481e-05,<0.001,<0.001,3
+Hiring channel,7,0.001567,0.005469,0.002,0.005,4
+Commute,2,0.001953,0.005469,0.002,0.005,5
+Profession,4,0.01164,0.02314,0.012,0.023,6
+Self-control (per SD),1,0.01219,0.02314,0.012,0.023,7
+Extraversion (per SD),1,0.01322,0.02314,0.013,0.023,8
+Anxiety (per SD),1,0.07663,0.1192,0.077,0.119,9
+Gender (protected),1,0.1378,0.193,0.138,0.193,10
+Probation mentor,2,0.2339,0.2977,0.234,0.298,11
+Independence (per SD),1,0.2965,0.3076,0.296,0.308,12
+Supervisor gender (protected),1,0.3036,0.3076,0.304,0.308,13
+Openness (per SD),1,0.3076,0.3076,0.308,0.308,14

@@ -1,0 +1,15 @@
+{
+  "rows": 1116,
+  "exact_duplicates_dropped": 13,
+  "person_groups": 771,
+  "rows_in_multi_row_groups": 510,
+  "events": 560,
+  "median_tenure_months": 50.98973306,
+  "survival": {
+    "6": 0.94,
+    "12": 0.856,
+    "24": 0.697,
+    "36": 0.607,
+    "60": 0.429
+  }
+}

@@ -1,0 +1,20 @@
+table Effectiveness
+	lineageTag: fa5667bf-718b-5a87-b005-f74fd5cb51fb
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: add4699b-5fe6-535e-8c89-750a59c376b2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+	column e = [Value] / 100
+		dataType: double
+		formatString: 0%
+		lineageTag: c544416f-4156-5ece-9d82-df1e5c838308
+		summarizeBy: none
+
+	partition Effectiveness = calculated
+		mode: import
+		source = GENERATESERIES ( 5, 100, 5 )

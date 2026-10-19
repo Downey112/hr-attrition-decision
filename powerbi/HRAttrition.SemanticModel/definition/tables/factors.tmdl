@@ -1,0 +1,35 @@
+table factors
+	lineageTag: 190c2a9d-4dd1-5945-922c-0d8d8613e65e
+
+	column factor
+		dataType: string
+		lineageTag: 8435728c-4b94-5a6a-bba2-51b3c1cf1b03
+		summarizeBy: none
+		sourceColumn: factor
+
+	column factor_order
+		dataType: int64
+		formatString: #,0
+		lineageTag: 615a5f74-0af0-5399-b8de-8175008ef30e
+		summarizeBy: none
+		sourceColumn: factor_order
+
+	column protected
+		dataType: boolean
+		lineageTag: d23d8912-a0d6-5d7d-9f40-a94ecd5d05a5
+		summarizeBy: none
+		sourceColumn: protected
+
+	partition factors = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\factors.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"factor", type text},
+				        {"factor_order", Int64.Type},
+				        {"protected", type logical}
+				    }, "en-US")
+				in
+				    Typed

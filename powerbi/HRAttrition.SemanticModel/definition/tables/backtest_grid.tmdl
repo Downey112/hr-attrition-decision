@@ -1,0 +1,101 @@
+table backtest_grid
+	lineageTag: e1eb2168-b612-5368-8359-828696d92a17
+
+	column k
+		dataType: double
+		formatString: 0.0
+		lineageTag: 9430fe28-7478-5549-a462-5f154929bfec
+		summarizeBy: none
+		sourceColumn: k
+
+	column c
+		dataType: double
+		formatString: 0.00
+		lineageTag: c12e59b4-b410-5fb3-af0b-cb9c72958f2f
+		summarizeBy: none
+		sourceColumn: c
+
+	column e
+		dataType: double
+		formatString: 0%
+		lineageTag: fa4b3dfc-a7df-54a8-be50-4342c789209f
+		summarizeBy: none
+		sourceColumn: e
+
+	column threshold
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c9d1dd10-d3df-52da-becf-0e1780553b3d
+		summarizeBy: none
+		sourceColumn: threshold
+
+	column share_targeted
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fa201024-1292-59fc-8b7b-0535846de20c
+		summarizeBy: none
+		sourceColumn: share_targeted
+
+	column saving
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f588c9f9-2a3c-52b9-b822-e59077ba1a37
+		summarizeBy: none
+		sourceColumn: saving
+
+	column lo95
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8462b715-d0eb-5adc-9ea0-fb5213ae33f4
+		summarizeBy: none
+		sourceColumn: lo95
+
+	column hi95
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 37f80b2d-8662-52af-80af-995f73eec7b4
+		summarizeBy: none
+		sourceColumn: hi95
+
+	column k_x100
+		dataType: int64
+		formatString: 0
+		lineageTag: 52d35da7-4351-5321-889b-7848554c7460
+		summarizeBy: none
+		sourceColumn: k_x100
+
+	column c_x100
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ced0ad2-fcf7-5137-8710-f1f85af5ae5a
+		summarizeBy: none
+		sourceColumn: c_x100
+
+	column e_x100
+		dataType: int64
+		formatString: 0
+		lineageTag: 634cf773-1482-5576-9df7-6aa6fe0a45b7
+		summarizeBy: none
+		sourceColumn: e_x100
+
+	partition backtest_grid = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\backtest_grid.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"k", type number},
+				        {"c", type number},
+				        {"e", type number},
+				        {"threshold", type number},
+				        {"share_targeted", type number},
+				        {"saving", type number},
+				        {"lo95", type number},
+				        {"hi95", type number},
+				        {"k_x100", Int64.Type},
+				        {"c_x100", Int64.Type},
+				        {"e_x100", Int64.Type}
+				    }, "en-US")
+				in
+				    Typed
