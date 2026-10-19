@@ -1,0 +1,4 @@
+expression DataFolder = "C:\Users\courts\hr-attrition-decision\powerbi\data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 407daf36-3b3f-580e-b2b5-bc1db7f86577
+
+	annotation PBI_ResultType = Text

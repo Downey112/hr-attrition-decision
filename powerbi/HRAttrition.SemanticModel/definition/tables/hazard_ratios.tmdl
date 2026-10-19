@@ -1,0 +1,73 @@
+table hazard_ratios
+	lineageTag: ac352185-6c97-5f65-82b8-224c90de8636
+
+	column covariate
+		dataType: string
+		lineageTag: 4d1813fd-d0c1-5530-96c2-e685f0d32e29
+		summarizeBy: none
+		sourceColumn: covariate
+
+	column hazard_ratio
+		dataType: double
+		formatString: 0.00
+		lineageTag: f01c9334-eaef-5743-b4e2-acfa8e5159e3
+		summarizeBy: none
+		sourceColumn: hazard_ratio
+
+	column hr_lo
+		dataType: double
+		formatString: 0.00
+		lineageTag: 8081d8fd-44df-5a6e-b240-f2e185a8cbfe
+		summarizeBy: none
+		sourceColumn: hr_lo
+
+	column hr_hi
+		dataType: double
+		formatString: 0.00
+		lineageTag: 1ddaea85-0edf-5614-85c8-5347e2f560f0
+		summarizeBy: none
+		sourceColumn: hr_hi
+
+	column p_robust
+		dataType: double
+		formatString: 0.000
+		lineageTag: d556c86d-0e25-5275-abfb-2d0e4cba6000
+		summarizeBy: none
+		sourceColumn: p_robust
+
+	column label
+		dataType: string
+		lineageTag: ab085e04-fb4d-538a-88bb-b14028bfde1b
+		summarizeBy: none
+		sourceColumn: label
+
+	column significant
+		dataType: string
+		lineageTag: e31058ed-3666-5939-b569-8fe1e56382d3
+		summarizeBy: none
+		sourceColumn: significant
+
+	column p_text
+		dataType: string
+		lineageTag: bc06c10c-86dc-5110-8b1b-51b6ec37760b
+		summarizeBy: none
+		sourceColumn: p_text
+
+	partition hazard_ratios = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\hazard_ratios.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"covariate", type text},
+				        {"hazard_ratio", type number},
+				        {"hr_lo", type number},
+				        {"hr_hi", type number},
+				        {"p_robust", type number},
+				        {"label", type text},
+				        {"significant", type text},
+				        {"p_text", type text}
+				    }, "en-US")
+				in
+				    Typed

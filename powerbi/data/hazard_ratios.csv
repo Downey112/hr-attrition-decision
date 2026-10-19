@@ -1,0 +1,32 @@
+covariate,hazard_ratio,hr_lo,hr_hi,p_robust,label,p_text,significant
+industry_Banks,2.1700,1.4460,3.2560,0.0002,Industry: Banks (vs Retail),<0.001,p < 0.05
+industry_Building,2.3900,1.4950,3.8220,0.0003,Industry: Building (vs Retail),<0.001,p < 0.05
+industry_Consult,1.9620,1.2460,3.0890,0.0036,Industry: Consulting (vs Retail),0.004,p < 0.05
+industry_IT,0.9067,0.5585,1.4720,0.6918,Industry: IT (vs Retail),0.692,not significant
+industry_PowerGeneration,1.0650,0.4623,2.4550,0.8820,Industry: Power generation (vs Retail),0.882,not significant
+industry_State,1.5550,0.9562,2.5280,0.0752,Industry: State sector (vs Retail),0.075,not significant
+industry_Telecom,0.8751,0.4613,1.6600,0.6830,Industry: Telecom (vs Retail),0.683,not significant
+industry_manufacture,1.3890,0.9248,2.0850,0.1134,Industry: Manufacturing (vs Retail),0.113,not significant
+industry_other,1.5180,1.0640,2.1670,0.0214,Industry: Other (vs Retail),0.021,p < 0.05
+industry_transport,1.3000,0.6602,2.5610,0.4476,Industry: Transport (vs Retail),0.448,not significant
+profession_IT,0.8423,0.5239,1.3540,0.4788,Profession: IT (vs HR),0.479,not significant
+profession_Marketing,1.7270,1.1140,2.6770,0.0146,Profession: Marketing (vs HR),0.015,p < 0.05
+profession_Sales,1.3550,0.8981,2.0430,0.1478,Profession: Sales (vs HR),0.148,not significant
+profession_other,1.4980,1.1490,1.9520,0.0028,Profession: Other (vs HR),0.003,p < 0.05
+traffic_KA,0.6718,0.4121,1.0950,0.1107,Hiring channel: Recruitment agency (vs Applied via job site),0.111,not significant
+traffic_advert,0.5129,0.2791,0.9428,0.0316,Hiring channel: Applied directly (vs Applied via job site),0.032,p < 0.05
+traffic_empjs,1.3270,0.9283,1.8980,0.1207,Hiring channel: Found by employer on job site (vs Applied via job site),0.121,not significant
+traffic_friends,0.5908,0.3909,0.8929,0.0125,Hiring channel: Knew the employer (vs Applied via job site),0.013,p < 0.05
+traffic_rabrecNErab,0.8422,0.6239,1.1370,0.2621,Hiring channel: Approached on a recommendation (vs Applied via job site),0.262,not significant
+traffic_recNErab,0.5141,0.3106,0.8507,0.0096,Hiring channel: Recommended by non-employee (vs Applied via job site),0.010,p < 0.05
+traffic_referal,0.7002,0.4988,0.9827,0.0393,Hiring channel: Employee referral (vs Applied via job site),0.039,p < 0.05
+coach_my head,0.8406,0.6489,1.0890,0.1887,Probation mentor: Mentor (own manager) (vs No mentor),0.189,not significant
+coach_yes,1.0920,0.8114,1.4690,0.5626,Probation mentor: Mentor (colleague) (vs No mentor),0.563,not significant
+greywage_grey,1.7070,1.2660,2.3010,0.0005,Wage type: Partly undeclared (grey) (vs Fully declared),<0.001,p < 0.05
+way_car,0.7863,0.6117,1.0110,0.0605,Commute: Car (vs Bus),0.060,not significant
+way_foot,0.6598,0.4328,1.0060,0.0532,Commute: On foot (vs Bus),0.053,not significant
+extraversion,1.0170,0.8827,1.1720,0.8130,Extraversion (per SD),0.813,not significant
+independ,0.9984,0.8763,1.1380,0.9811,Independence (per SD),0.981,not significant
+selfcontrol,0.9124,0.7886,1.0560,0.2177,Self-control (per SD),0.218,not significant
+anxiety,0.9146,0.8082,1.0350,0.1575,Anxiety (per SD),0.158,not significant
+novator,1.0170,0.8884,1.1650,0.8047,Openness (per SD),0.805,not significant

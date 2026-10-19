@@ -1,0 +1,60 @@
+table calibration
+	lineageTag: cfc81b29-d599-5b88-8977-f2d7f8964557
+
+	measure 'Predicted Rate' = AVERAGE ( calibration[predicted] )
+		formatString: 0.0%
+		displayFolder: Base
+		lineageTag: d82ced38-4396-5e02-8075-843bc0b2b65c
+
+	measure 'Observed Rate' = AVERAGE ( calibration[observed_km] )
+		formatString: 0.0%
+		displayFolder: Base
+		lineageTag: b40b3035-5bf0-56ea-b941-86f43f9ac6c8
+
+	column bin
+		dataType: int64
+		formatString: 0
+		lineageTag: d29f3f06-3213-591b-b087-0eac5371e80b
+		summarizeBy: none
+		sourceColumn: bin
+
+	column n
+		dataType: int64
+		formatString: #,0
+		lineageTag: 39c43db1-a9d4-5249-9306-5d712e2939db
+		summarizeBy: none
+		sourceColumn: n
+
+	column predicted
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5630616b-876a-522a-8903-4552fb05db6c
+		summarizeBy: none
+		sourceColumn: predicted
+
+	column observed_km
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 0d60a708-bba3-5f8f-b7dc-d92fb4e14e57
+		summarizeBy: none
+		sourceColumn: observed_km
+
+	column quintile = "Q" & calibration[bin]
+		dataType: string
+		lineageTag: eefcb047-3ffd-58d8-add3-6f964a84efdb
+		summarizeBy: none
+
+	partition calibration = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\calibration.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"bin", Int64.Type},
+				        {"n", Int64.Type},
+				        {"predicted", type number},
+				        {"observed_km", type number}
+				    }, "en-US")
+				in
+				    Typed

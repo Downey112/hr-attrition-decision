@@ -1,0 +1,55 @@
+{
+  "base_case": {
+    "k": 1.0,
+    "c": 0.1,
+    "e": 0.3
+  },
+  "base_result": {
+    "k": 1.0,
+    "c": 0.1,
+    "e": 0.3,
+    "threshold": 0.33333333333333337,
+    "share_targeted": 0.0017921146953405018,
+    "cost_nobody": 0.14401919887337827,
+    "cost_everyone": 0.20081343921136482,
+    "cost_model": 0.14422746670820227,
+    "model_saving_vs_best_simple": -0.0002082678348239997
+  },
+  "optimistic_case": {
+    "k": 2.0,
+    "c": 0.1,
+    "e": 0.5
+  },
+  "optimistic_result": {
+    "k": 2.0,
+    "c": 0.1,
+    "e": 0.5,
+    "threshold": 0.1,
+    "share_targeted": 0.8593189964157706,
+    "cost_nobody": 0.28803839774675655,
+    "cost_everyone": 0.24401919887337833,
+    "cost_model": 0.24062046713456445,
+    "model_saving_vs_best_simple": 0.003398731738813887
+  },
+  "grid_summary": {
+    "scenarios": 45,
+    "rule_splits_staff": 11,
+    "saving_ci_above_0": 4,
+    "saving_ci_below_0": 0,
+    "max_saving": 0.04272122850866711
+  },
+  "staff_n": 556,
+  "staff_p12": {
+    "count": 551.0,
+    "mean": 0.1562,
+    "std": 0.0544,
+    "min": 0.0523,
+    "25%": 0.1177,
+    "50%": 0.1514,
+    "75%": 0.1813,
+    "max": 0.3772
+  },
+  "staff_beyond_followup": 5,
+  "staff_targeted_base": 4,
+  "staff_targeted_optimistic": 480
+}

@@ -1,0 +1,42 @@
+{
+  "penalizer": 0.3,
+  "cv": {
+    "c_decision": {
+      "mean": 0.6031,
+      "sd": 0.0093
+    },
+    "c_full": {
+      "mean": 0.6074,
+      "sd": 0.0105
+    },
+    "brier_null": {
+      "mean": 0.1234,
+      "sd": 0.0001
+    },
+    "brier_decision": {
+      "mean": 0.1213,
+      "sd": 0.0006
+    },
+    "brier_full": {
+      "mean": 0.1211,
+      "sd": 0.0008
+    }
+  },
+  "bootstrap_ci_seed0": {
+    "c": [
+      0.5809,
+      0.6429
+    ],
+    "brier_gain": [
+      0.0004,
+      0.0052
+    ]
+  },
+  "c_by_grouping_rule": {
+    "personality_key_only": 0.6146,
+    "no_grouping": 0.6231,
+    "chained_default": 0.6129
+  },
+  "ph_violations": [],
+  "ph_tests": 31
+}

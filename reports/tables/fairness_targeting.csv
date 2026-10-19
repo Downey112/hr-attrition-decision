@@ -1,0 +1,8 @@
+attribute,group,staff_n,mean_p_leave_12m,targeted_base,targeted_optimistic
+gender,f,415,0.1594,0.0072,0.8892
+gender,m,141,0.1466,0.0071,0.7872
+age_band,26-30,164,0.1627,0.0061,0.8720
+age_band,31-35,144,0.1526,0.0069,0.8750
+age_band,36-40,75,0.1473,0.0000,0.8933
+age_band,41+,61,0.1629,0.0328,0.8197
+age_band,<=25,112,0.1534,0.0000,0.8393

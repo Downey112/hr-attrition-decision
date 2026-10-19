@@ -1,0 +1,10 @@
+factor,factor_order,protected
+Industry,0,False
+Profession,1,False
+Hiring channel,2,False
+Probation mentor,3,False
+Wage type,4,False
+Commute,5,False
+Gender (protected),6,True
+Supervisor gender (protected),7,True
+Age at hire (protected),8,True

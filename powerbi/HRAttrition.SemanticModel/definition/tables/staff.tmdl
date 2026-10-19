@@ -1,0 +1,243 @@
+table staff
+	lineageTag: aed6049e-036d-54d6-b8d6-7ff50f804020
+
+	measure 'Sel k' = SELECTEDVALUE ( 'Loss multiple'[k], 1 )
+		formatString: 0.00
+		displayFolder: Assumptions
+		lineageTag: a90ee22c-f556-5fa5-8095-872a441f22bc
+
+	measure 'Sel c' = SELECTEDVALUE ( 'Intervention cost'[c], 0.10 )
+		formatString: 0.00
+		displayFolder: Assumptions
+		lineageTag: e661b01b-6930-5d37-a88c-bcfbfd74b0df
+
+	measure 'Sel e' = SELECTEDVALUE ( 'Effectiveness'[e], 0.30 )
+		formatString: 0%
+		displayFolder: Assumptions
+		lineageTag: 59813ca7-6f50-5ea7-b9ec-2825a0fcc2fb
+
+	measure 'Risk Threshold' = DIVIDE ( [Sel c], [Sel e] * [Sel k] )
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: 24f2a618-44a4-5b06-9e28-65715ba0dc77
+
+	measure 'Staff Scored' = COUNTROWS ( FILTER ( staff, NOT ISBLANK ( staff[p_leave_12m] ) ) )
+		formatString: #,0
+		displayFolder: Decision
+		lineageTag: 18658ba5-fc6d-560b-9cbb-008bdff7c13d
+
+	measure 'Staff Targeted' =
+			VAR t = [Risk Threshold]
+			RETURN
+			    COUNTROWS ( FILTER ( staff, staff[p_leave_12m] > t ) ) + 0
+		formatString: #,0
+		displayFolder: Decision
+		lineageTag: e3c3d3dc-8a8a-593f-9d7f-4e0466957a5e
+
+	measure 'Share Targeted' = DIVIDE ( [Staff Targeted], [Staff Scored] )
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: 9220ac1a-99f4-5388-b853-1f9aee127a70
+
+	measure 'Mean Risk' = AVERAGE ( staff[p_leave_12m] )
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: 764b4211-d132-54c3-8352-33d4d204b310
+
+	measure 'Expected Saving' =
+			VAR k = [Sel k]
+			VAR c = [Sel c]
+			VAR e = [Sel e]
+			VAR t = [Risk Threshold]
+			RETURN
+			    DIVIDE (
+			        SUMX ( FILTER ( staff, staff[p_leave_12m] > t ), staff[p_leave_12m] * e * k - c ),
+			        [Staff Scored]
+			    ) + 0
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: ce1b3b7d-454c-5792-ad87-cb57854b5c03
+
+	measure 'Median Break-even e' =
+			VAR k = [Sel k]
+			VAR c = [Sel c]
+			RETURN
+			    MEDIANX ( FILTER ( staff, staff[p_leave_12m] > 0 ), DIVIDE ( c, staff[p_leave_12m] * k ) )
+		formatString: 0%
+		displayFolder: Decision
+		lineageTag: 23ffcf84-11d6-5cd3-ad78-3cbe1d475b7c
+
+	measure 'Backtest Saving' =
+			LOOKUPVALUE (
+			    backtest_grid[saving],
+			    backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ),
+			    backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ),
+			    backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 )
+			)
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: f1479791-3b3e-5116-bb71-dda667ae6726
+
+	measure 'Backtest Value' = IF ( ISBLANK ( [Backtest Saving] ), "n/a", FORMAT ( [Backtest Saving], "+0.0%;-0.0%;0.0%" ) )
+		displayFolder: Decision
+		lineageTag: 4abd5e6a-66b0-549c-9f85-c5f8256aff05
+
+	measure 'Row Risk If Targeted' =
+			VAR p = MAX ( staff[p_leave_12m] )
+			RETURN
+			    IF ( p > [Risk Threshold], p )
+		formatString: 0.0%
+		displayFolder: Decision
+		lineageTag: 1f405434-08e9-52ef-9c0e-a71cec2b3480
+
+	measure 'Row Net Value' =
+			VAR p = MAX ( staff[p_leave_12m] )
+			RETURN
+			    IF ( p > [Risk Threshold], p * [Sel e] * [Sel k] - [Sel c] )
+		formatString: 0.000
+		displayFolder: Decision
+		lineageTag: dd0dbbe9-bdd8-5b40-b106-3cce7b0f7f4f
+
+	measure 'Row Break-even e' =
+			VAR p = MAX ( staff[p_leave_12m] )
+			RETURN
+			    IF ( p > [Risk Threshold], DIVIDE ( [Sel c], p * [Sel k] ) )
+		formatString: 0%
+		displayFolder: Decision
+		lineageTag: 5dcaac28-7d5e-5f1a-b850-09cf313292d1
+
+	measure 'Bin Color' = IF ( MAX ( staff[risk_bin] ) + 0.0125 > [Risk Threshold], "#1D4ED8", "#CBD5E1" )
+		displayFolder: Colors
+		lineageTag: 4df6ebb7-da9d-561b-971c-7909b3602fed
+
+	measure 'Label Threshold' = "c ÷ (e × k): intervene above this"
+		displayFolder: Labels
+		lineageTag: af65c035-97e7-540c-bc3e-908ad7609e81
+
+	measure 'Label Targeted' = FORMAT ( [Share Targeted], "0.0%" ) & " of " & FORMAT ( [Staff Scored], "#,0" ) & " scored staff"
+		displayFolder: Labels
+		lineageTag: 4e8c9a2b-3bb8-5ab9-a250-77176c2a3b98
+
+	measure 'Label Expected' = "net saving per employee, × salary"
+		displayFolder: Labels
+		lineageTag: ad9df5bc-f267-5f3f-9452-dcfb17192ff9
+
+	measure 'Label Backtest' =
+			VAR lo = LOOKUPVALUE ( backtest_grid[lo95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )
+			VAR hi = LOOKUPVALUE ( backtest_grid[hi95], backtest_grid[k_x100], ROUND ( [Sel k] * 100, 0 ), backtest_grid[c_x100], ROUND ( [Sel c] * 100, 0 ), backtest_grid[e_x100], ROUND ( [Sel e] * 100, 0 ) )
+			RETURN
+			    IF ( ISBLANK ( [Backtest Saving] ), "not a back-tested scenario",
+			        "95% CI " & FORMAT ( lo, "0.0%" ) & " to " & FORMAT ( hi, "0.0%" ) )
+		displayFolder: Labels
+		lineageTag: b68369fd-2855-5e84-84e9-6a5d30e594c7
+
+	measure 'Label Break-even' = "median needed to break even"
+		displayFolder: Labels
+		lineageTag: c5403c4f-46c8-5ca6-8e90-172760dca6a6
+
+	measure 'Title Histogram' = "12-month leaving risk, current staff · blue = above " & FORMAT ( [Risk Threshold], "0.0%" )
+		displayFolder: Titles
+		lineageTag: 1dfe7f3c-3528-5419-b04e-1bcc6b933100
+
+	measure 'Title Staff Table' = FORMAT ( [Staff Targeted], "#,0" ) & " staff to target at k = " & FORMAT ( [Sel k], "0.00" ) & ", c = " & FORMAT ( [Sel c], "0.00" ) & ", e = " & FORMAT ( [Sel e], "0%" ) & ", highest risk first"
+		displayFolder: Titles
+		lineageTag: 1520d230-1591-5c83-8ae1-664adeed8701
+
+	column row_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2150c482-c22a-569a-bcab-97250255036f
+		summarizeBy: none
+		sourceColumn: row_id
+
+	column tenure_months
+		dataType: double
+		formatString: 0
+		lineageTag: 9e738951-fd13-5dce-92bf-e8410499ee03
+		summarizeBy: none
+		sourceColumn: tenure_months
+
+	column industry
+		dataType: string
+		lineageTag: ee129b45-7182-5d43-94ff-232a37c17651
+		summarizeBy: none
+		sourceColumn: industry
+
+	column profession
+		dataType: string
+		lineageTag: 3d7529c4-16ca-50cd-a1e1-097d97424c6c
+		summarizeBy: none
+		sourceColumn: profession
+
+	column traffic
+		dataType: string
+		lineageTag: 187dd662-a5f9-5e28-a728-7abba8bbd631
+		summarizeBy: none
+		sourceColumn: traffic
+
+	column coach
+		dataType: string
+		lineageTag: 0827031d-c9ef-50eb-80b4-e0b0f94da38a
+		summarizeBy: none
+		sourceColumn: coach
+
+	column greywage
+		dataType: string
+		lineageTag: 94bde6e9-d532-50e7-b3f6-79c434b6c60f
+		summarizeBy: none
+		sourceColumn: greywage
+
+	column way
+		dataType: string
+		lineageTag: d3699225-3d20-5441-b2e5-56c16b8cf078
+		summarizeBy: none
+		sourceColumn: way
+
+	column p_leave_12m
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ce4c148c-d6b6-5929-9a61-ed47f7fb017e
+		summarizeBy: none
+		sourceColumn: p_leave_12m
+
+	column risk_bin
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 58b4fdf3-6f3e-50a0-89b0-afb9399543d2
+		summarizeBy: none
+		sourceColumn: risk_bin
+
+	column gender
+		dataType: string
+		lineageTag: 8aff73af-acce-5073-8da5-62afef690924
+		summarizeBy: none
+		sourceColumn: gender
+
+	column age_band
+		dataType: string
+		lineageTag: 0043d4bc-a8da-5fa9-b19d-1e10fe26dcb1
+		summarizeBy: none
+		sourceColumn: age_band
+
+	partition staff = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\staff.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"row_id", Int64.Type},
+				        {"tenure_months", type number},
+				        {"industry", type text},
+				        {"profession", type text},
+				        {"traffic", type text},
+				        {"coach", type text},
+				        {"greywage", type text},
+				        {"way", type text},
+				        {"p_leave_12m", type number},
+				        {"risk_bin", type number},
+				        {"gender", type text},
+				        {"age_band", type text}
+				    }, "en-US")
+				in
+				    Typed

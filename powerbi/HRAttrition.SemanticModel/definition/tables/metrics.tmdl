@@ -1,0 +1,78 @@
+table metrics
+	lineageTag: 7c1a9494-20bd-513a-8403-9947433ff4fa
+
+	measure Employees = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "employees" )
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: d128eabd-9572-5230-96a9-e0c5da75bcdc
+
+	measure Leavers = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "leavers" )
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: 7f560e1c-726e-542f-a640-62de639a467a
+
+	measure 'Median Tenure' = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "median_tenure_months" )
+		formatString: 0
+		displayFolder: KPI
+		lineageTag: 1984337c-4b7b-5125-b964-e3af1fee0fd8
+
+	measure 'Left by 12m' = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "left_by_12m" )
+		formatString: 0.0%
+		displayFolder: KPI
+		lineageTag: 24ef6e75-9139-517e-aa5b-aa8cbde7f42b
+
+	measure 'C Index' = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "c_index" )
+		formatString: 0.00
+		displayFolder: KPI
+		lineageTag: 90893491-32df-5375-bc8c-01c60dac0cd7
+
+	measure 'Staff Scored KPI' = CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "staff_scored" )
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: f049b430-06f9-5be7-88df-1451e47b657d
+
+	measure 'Label Employees' = "real survey respondents · " & FORMAT ( [Leavers], "#,0" ) & " have left"
+		displayFolder: Labels
+		lineageTag: 18d9a6ce-1f87-581e-aafe-4b6e02104a21
+
+	measure 'Label Tenure' = "months, half have left by then"
+		displayFolder: Labels
+		lineageTag: 138d9b5f-38e1-56a5-9d7e-c8e18677438f
+
+	measure 'Label Left 12m' = "of new hires leave in their first year"
+		displayFolder: Labels
+		lineageTag: 8b7b2010-1b00-5834-96ab-79417d9826c3
+
+	measure 'Label C Index' = "chance = 0.50 · 95% CI " & FORMAT ( CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "c_index_lo" ), "0.00" ) & "–" & FORMAT ( CALCULATE ( MAX ( metrics[value] ), metrics[metric] = "c_index_hi" ), "0.00" )
+		displayFolder: Labels
+		lineageTag: c994bf3c-0c3a-54a4-9a4c-572a3ffe170f
+
+	measure 'Label Staff' = "still in the job, with a 12-month risk score"
+		displayFolder: Labels
+		lineageTag: b3b5df31-18a6-5c9f-b1ed-52593645ffad
+
+	column metric
+		dataType: string
+		lineageTag: 43e6c9ec-c80b-5720-92b5-334692292076
+		summarizeBy: none
+		sourceColumn: metric
+
+	column value
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 31f7cd1f-aec4-50b0-b4dc-d7e63c64e328
+		summarizeBy: none
+		sourceColumn: value
+
+	partition metrics = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\metrics.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"metric", type text},
+				        {"value", type number}
+				    }, "en-US")
+				in
+				    Typed

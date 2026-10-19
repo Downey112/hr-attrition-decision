@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DataFolder", "metrics", "factors", "km_curves", "group_levels", "factor_tests", "hazard_ratios", "staff", "backtest_grid", "calibration", "fairness_calibration"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table metrics
+ref table factors
+ref table km_curves
+ref table group_levels
+ref table factor_tests
+ref table hazard_ratios
+ref table staff
+ref table backtest_grid
+ref table calibration
+ref table fairness_calibration
+ref table 'Loss multiple'
+ref table 'Intervention cost'
+ref table Effectiveness

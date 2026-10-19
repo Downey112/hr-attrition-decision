@@ -1,0 +1,11 @@
+metric,value
+employees,1116
+leavers,560
+median_tenure_months,50.9897
+left_by_12m,0.144
+c_index,0.6031
+c_index_lo,0.5809
+c_index_hi,0.6429
+brier_null,0.1234
+brier_model,0.1213
+staff_scored,551

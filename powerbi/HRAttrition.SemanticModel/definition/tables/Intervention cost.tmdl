@@ -1,0 +1,20 @@
+table 'Intervention cost'
+	lineageTag: 3acd379d-c1b4-5bd8-bc31-2f420aba5c22
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 027035f5-e0fa-5f27-9229-0559fecffe67
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+	column c = [Value] / 100
+		dataType: double
+		formatString: 0.00
+		lineageTag: 7ab227c1-99de-52a5-ae45-0c871e7a6f68
+		summarizeBy: none
+
+	partition 'Intervention cost' = calculated
+		mode: import
+		source = GENERATESERIES ( 1, 30, 1 )

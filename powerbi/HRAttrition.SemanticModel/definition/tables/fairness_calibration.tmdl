@@ -1,0 +1,60 @@
+table fairness_calibration
+	lineageTag: 4447ee70-9735-5702-8254-09fabd5f2fc2
+
+	column attribute
+		dataType: string
+		lineageTag: da427665-5211-5f34-b1e3-5e91a9675ec6
+		summarizeBy: none
+		sourceColumn: attribute
+
+	column group
+		dataType: string
+		lineageTag: 5108156e-3f9a-59c7-9f4f-69becfb7d7a7
+		summarizeBy: none
+		sourceColumn: group
+		sortByColumn: order
+
+	column n
+		dataType: int64
+		formatString: #,0
+		lineageTag: 093a6ff8-5a70-54e8-933d-6889f3dded37
+		summarizeBy: none
+		sourceColumn: n
+
+	column predicted_12m
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d4b0e9a8-529b-56e5-a994-3d48a1e98ae8
+		summarizeBy: none
+		sourceColumn: predicted_12m
+
+	column observed_12m_km
+		dataType: double
+		formatString: 0.0%
+		lineageTag: b160712d-f450-589f-84e4-db3d977584e0
+		summarizeBy: none
+		sourceColumn: observed_12m_km
+
+	column order
+		dataType: int64
+		formatString: #,0
+		lineageTag: 59cd5c3d-75e9-58a6-8ea7-fb34036e1ecf
+		summarizeBy: none
+		sourceColumn: order
+
+	partition fairness_calibration = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fairness_calibration.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"attribute", type text},
+				        {"group", type text},
+				        {"n", Int64.Type},
+				        {"predicted_12m", type number},
+				        {"observed_12m_km", type number},
+				        {"order", Int64.Type}
+				    }, "en-US")
+				in
+				    Typed
