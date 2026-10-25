@@ -25,3 +25,6 @@ ref table fairness_calibration
 ref table 'Loss multiple'
 ref table 'Intervention cost'
 ref table Effectiveness
+
+ref cultureInfo en-US
+
