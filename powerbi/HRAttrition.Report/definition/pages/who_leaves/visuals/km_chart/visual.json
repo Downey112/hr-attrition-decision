@@ -32,24 +32,6 @@
             }
           ]
         },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "km_curves"
-                    }
-                  },
-                  "Property": "Still Employed"
-                }
-              },
-              "queryRef": "km_curves.Still Employed",
-              "nativeQueryRef": "Still Employed"
-            }
-          ]
-        },
         "Series": {
           "projections": [
             {
@@ -67,10 +49,27 @@
               "nativeQueryRef": "level"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "km_curves"
+                    }
+                  },
+                  "Property": "Still Employed"
+                }
+              },
+              "queryRef": "km_curves.Still Employed",
+              "nativeQueryRef": "Still Employed"
+            }
+          ]
         }
       }
     },
-    "objects": {},
     "visualContainerObjects": {
       "title": [
         {

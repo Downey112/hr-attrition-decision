@@ -18,3 +18,4 @@ table 'Loss multiple'
 	partition 'Loss multiple' = calculated
 		mode: import
 		source = GENERATESERIES ( 50, 300, 25 )
+

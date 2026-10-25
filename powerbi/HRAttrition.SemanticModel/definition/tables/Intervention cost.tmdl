@@ -18,3 +18,4 @@ table 'Intervention cost'
 	partition 'Intervention cost' = calculated
 		mode: import
 		source = GENERATESERIES ( 1, 30, 1 )
+

@@ -18,3 +18,4 @@ table Effectiveness
 	partition Effectiveness = calculated
 		mode: import
 		source = GENERATESERIES ( 5, 100, 5 )
+
